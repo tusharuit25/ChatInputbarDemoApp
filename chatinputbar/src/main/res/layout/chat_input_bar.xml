@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/tools"
+    android:id="@+id/chat_input_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/rootlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/background_link_preview_square"
+        android:minHeight="52dp"
+        android:paddingBottom="8dp">
+
+        <RelativeLayout
+            android:id="@+id/leftlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true">
+            <com.fangxu.allangleexpandablebutton.AllAngleExpandableButton
+                android:id="@+id/button_expandable"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="5dp"
+                app:aebAnimDurationMillis="105"
+                app:aebButtonElevation="0dp"
+                app:aebButtonGapDp="10dp"
+                app:aebEndAngleDegree="90"
+                app:aebIsSelectionMode="false"
+                app:aebMainButtonRotateAnimDurationMillis="300"
+                app:aebMainButtonRotateDegree="-135"
+                app:aebMainButtonSizeDp="42dp"
+                app:aebRippleEffect="true"
+                app:aebStartAngleDegree="90"
+                app:aebSubButtonSizeDp="42dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/middlelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/leftlayout"
+            android:layout_toRightOf="@+id/leftlayout"
+            android:layout_toStartOf="@+id/record_button">
+
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+                android:id="@+id/messageinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/emojibutton"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/backgound_link_preview"
+                android:drawingCacheQuality="high"
+                android:focusedByDefault="false"
+                android:imeOptions="actionSend"
+                android:inputType="textMultiLine|textAutoCorrect|textAutoComplete|textMultiLine|textCapSentences"
+                android:maxLines="6"
+                android:padding="10dp"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                emojicon:emojiconSize="28sp" />
+
+            <ImageView
+                android:id="@+id/emojibutton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/emojibackground"
+                android:paddingBottom="0dp"
+                android:paddingRight="2dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/smiley"
+                android:tint="@color/pink" />
+        </RelativeLayout>
+
+        <com.devlomi.record_view.RecordView
+            android:id="@+id/record_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:slide_to_cancel_arrow="@drawable/ic_keyboard_arrow_left"
+            app:slide_to_cancel_margin_right="40dp"
+            app:slide_to_cancel_text="Slide To Cancel" />
+
+        <com.devlomi.record_view.RecordButton
+            android:id="@+id/record_button"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bg_mic"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_mic"
+            android:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bg_mic"
+            android:paddingBottom="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_action_send_now"
+            android:tint="@color/white"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</RelativeLayout>
