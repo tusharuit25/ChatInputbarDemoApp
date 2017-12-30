@@ -1,7 +1,15 @@
 # Chat Inputbar Demo App
 attachment emojis and voice recording facility in one component
 
+
 to use this component , just add chatinpur bar in your activity/view where you want user to input text,image,gallery image location etc and 
+
+
+<img src="https://github.com/tusharuit25/ChatInputbarDemoApp/blob/master/app/src/main/res/drawable/Emoji.png" width="250" /> 
+<img src="https://github.com/tusharuit25/ChatInputbarDemoApp/blob/master/app/src/main/res/drawable/Record_snap.png" width="250"/> 
+<img src="https://github.com/tusharuit25/ChatInputbarDemoApp/blob/master/app/src/main/res/drawable/attachment.png" width="250"/> 
+
+
 set the permission in android manifest .
 
 `<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
