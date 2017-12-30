@@ -15,7 +15,8 @@ public class MainActivity extends AppCompatActivity implements
         ChatInputBar.InputListener,
         ChatInputBar.AllAngleButtonClickListener,
         ChatInputBar.EmojiKeyboardOpenCloseListener,
-        ChatInputBar.RecordingListener {
+        ChatInputBar.RecordingListener,
+        ChatInputBar.TypingListener {
 
     com.twigsoftwares.com.chatinputbar.ChatInputBar mchatInputBar;
 
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements
         mchatInputBar.setEmojiKeyboardOpenCloseListener(this);
 
         mchatInputBar.setRecordingListener(this);
+
+        mchatInputBar.setTypingListener(this);
 
         requestPermission.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,5 +124,15 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onCompleted(String FileName) {
         Toast.makeText(this, FileName, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStartTyping() {
+        Toast.makeText(this, "Typing Started", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStopTyping() {
+        Toast.makeText(this, "Typing Ended", Toast.LENGTH_SHORT).show();
     }
 }

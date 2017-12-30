@@ -2,4 +2,22 @@
 <resources>
     <dimen name="input_right_margin">50dp</dimen>
     <dimen name="input_left_margin">50dp</dimen>
+
+    <dimen name="input_text_size">17sp</dimen>
+
+    <dimen name="input_padding_left">16sp</dimen>
+    <dimen name="input_padding_right">16sp</dimen>
+    <dimen name="input_padding_top">2sp</dimen>
+    <dimen name="input_padding_bottom">2sp</dimen>
+
+
+    <dimen name="input_button_width">36dp</dimen>
+    <dimen name="input_button_height">36dp</dimen>
+    <dimen name="input_button_margin">16dp</dimen>
+
+    <dimen name="record_button_width">36dp</dimen>
+    <dimen name="record_button_height">36dp</dimen>
+    <dimen name="record_button_margin">16dp</dimen>
+
+
 </resources>

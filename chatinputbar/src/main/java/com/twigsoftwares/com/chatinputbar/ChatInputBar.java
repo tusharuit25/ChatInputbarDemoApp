@@ -48,7 +48,7 @@ import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ChatInputBar extends RelativeLayout
-        implements View.OnClickListener, TextWatcher {
+        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener {
 
     // inner views
     private EmojIconActions emojIcon;
@@ -59,6 +59,7 @@ public class ChatInputBar extends RelativeLayout
     protected RecordButton recordButton;
     protected RecordView recordView;
 
+    private ChatInputBarStyle chatInputBarStyle;
     // view which will be adjusted all the time
     protected RelativeLayout middleLayout;
 
@@ -99,6 +100,24 @@ public class ChatInputBar extends RelativeLayout
 
     // output file after recording
     private File mOutputFile;
+
+    //typing listeners
+
+    private boolean isTyping;
+    private int delayTypingStatusMillis;
+    private TypingListener typingListener;
+
+    private Runnable typingTimerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isTyping) {
+                isTyping = false;
+                if (typingListener != null) typingListener.onStopTyping();
+            }
+        }
+    };
+
+    private boolean lastFocus;
 
 
     // component constructors
@@ -188,6 +207,16 @@ public class ChatInputBar extends RelativeLayout
     }
 
     /**
+     * Sets callback for 'typing' in typebox.
+     *
+     * @param typingListener typing callback
+     */
+
+    public void setTypingListener(TypingListener typingListener) {
+        this.typingListener = typingListener;
+    }
+
+    /**
      * Returns EditText for messages input
      *
      * @return EditText
@@ -222,6 +251,7 @@ public class ChatInputBar extends RelativeLayout
 
         input = charSequence;
         messageSendButton.setEnabled(input.length() > 0);
+
 
         if (input.length() > 0) {
             recordButton.animate()
@@ -275,11 +305,28 @@ public class ChatInputBar extends RelativeLayout
                     });
         }
 
+
+        if (!isTyping) {
+            isTyping = true;
+            if (typingListener != null) typingListener.onStartTyping();
+        }
+
+        removeCallbacks(typingTimerRunnable);
+        postDelayed(typingTimerRunnable, delayTypingStatusMillis);
+
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (lastFocus && !hasFocus && typingListener != null) {
+            typingListener.onStopTyping();
+        }
+        lastFocus = hasFocus;
     }
 
     // event on send button clicked
@@ -294,6 +341,8 @@ public class ChatInputBar extends RelativeLayout
                 messageInput.setText("");
 
             }
+            removeCallbacks(typingTimerRunnable);
+            post(typingTimerRunnable);
         }
 
 
@@ -332,6 +381,8 @@ public class ChatInputBar extends RelativeLayout
 
         init(context);
 
+        ChatInputBarStyle style = ChatInputBarStyle.parse(context, attrs);
+        this.setStyle(style);
 
         messageSendButton.setOnClickListener(this);
         expandableButton.setOnClickListener(this);
@@ -431,6 +482,7 @@ public class ChatInputBar extends RelativeLayout
 
         inflate(context, R.layout.chat_input_bar, this);
 
+
         // input text which is enabled for emoji's
 
         messageInput = (EmojiconEditText) findViewById(R.id.messageinput);
@@ -495,6 +547,21 @@ public class ChatInputBar extends RelativeLayout
             }
         });
 
+        messageInput.addTextChangedListener(this);
+
+        messageInput.setText("");
+
+        messageInput.setOnFocusChangeListener(this);
+
+
+    }
+
+    public ChatInputBarStyle getStyle() {
+        return this.chatInputBarStyle;
+    }
+
+    public void setStyle(ChatInputBarStyle chatInputBarStyle) {
+        this.delayTypingStatusMillis = chatInputBarStyle.getDelayTypingStatus();
     }
 
     //unused
@@ -703,6 +770,20 @@ public class ChatInputBar extends RelativeLayout
         void onInvalid(boolean isValid);
 
         void onCompleted(String recordedFileName);
+
+    }
+
+    public interface TypingListener {
+
+        /**
+         * Fires when user presses start typing
+         */
+        void onStartTyping();
+
+        /**
+         * Fires when user presses stop typing
+         */
+        void onStopTyping();
 
     }
 }
