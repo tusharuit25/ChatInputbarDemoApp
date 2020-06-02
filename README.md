@@ -109,7 +109,7 @@ you can implement various event depending upon your requirement like
 }`
     
     
-Enjoy the Component but with my component do whatever you wanted to do man.
+Enjoy the Component and do whatever you wanted to do man.
 
 Also have a look at MainActivity.java for complete understanding & asking permission at runtime is important prerequestite of this library
 
